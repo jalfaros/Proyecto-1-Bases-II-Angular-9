@@ -1,0 +1,215 @@
+<form autocomplete="off" #form_1 [formGroup]="forma" (ngSubmit)="guardar( longContent )">
+  <div class="card shadow p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+      <div class="card-header">
+        <h1 class="text-center mt-3">Generación de código</h1>
+
+        <button type="button" (click)="modalSchema(creandoSchema)" class="btn btn-outline-success btnAgregar"
+        *ngIf="inputDesactivado"
+        >
+          Crear Esquema
+        </button>
+      </div>
+
+      
+     
+      <div class="container mt-4">
+
+        
+      <div class="form-group col" *ngIf="inputDesactivado" style="text-align: right;">
+        <label class="form-label">Ejecutar Código</label>
+        <mat-slide-toggle class="ml-2" color="primary" formControlName="ejecutar" [(ngModel)]="isChecked"></mat-slide-toggle>
+      </div>
+
+
+      
+        <div class="form-group row">
+          <label class="col-2 col-form-label"> Servidor </label>
+          <div class="col-8">
+            <input class="form-control" formControlName="server" [class.is-invalid]="serverNoValida" [readonly]="inputDesactivado"  />
+            <small class="rojo" *ngIf="serverNoValida">Debe de ingresar un Servidor</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label"> Base </label>
+          <div class="col-8">
+            <input class="form-control" formControlName="database" [class.is-invalid]="databaseNoValida" [readonly]="inputDesactivado" />
+            <small class="rojo" *ngIf="databaseNoValida">Debe ingresar una Base de datos</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label"> Puerto </label>
+          <div class="col-8">
+            <input class="form-control" type="number" formControlName="port" [class.is-invalid]="portNoValida"
+              autocomplete="off" [readonly]="inputDesactivado" />
+            <small class="rojo" *ngIf="portNoValida">Debe ingresar un número de puerto</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label"> Usuario </label>
+          <div class="col-8">
+            <input class="form-control" formControlName="user" [class.is-invalid]="userNoValida" [readonly]="inputDesactivado"/>
+            <small class="rojo" *ngIf="userNoValida">Debe ingresar un usuario</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label"> Contraseña </label>
+          <div class="col-8">
+            <input class="form-control" type="password" formControlName="password" [class.is-invalid]="passwordNoValida"
+              autocomplete="off" [readonly]="inputDesactivado" />
+            <small class="rojo" *ngIf="passwordNoValida">Debe ingresar una contraseña</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label"> Motor </label>
+          <div class="col-8">
+            <select class="custom-select mr-sm-2" formControlName="motor" [class.is-invalid]="motorNoValida" >
+              
+              <option *ngFor="let item of motores" [value]="item.motor">
+                {{ item.motor }}
+              </option>
+
+            </select>
+            <small class="rojo" *ngIf="motorNoValida">Seleccione una opcion</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label">Tabla</label>
+
+          <div class="col-8">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="tabla"
+              [class.is-invalid]="tablaNoValida" placeholder="Seleccione una tabla">
+              <option *ngFor="let item of tablas" [value]="item.tabla">
+                {{ item.tabla }}
+              </option>
+            </select>
+            <small class="rojo" *ngIf="tablaNoValida">Seleccione una opcion</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label">Esquema</label>
+
+          <div class="col-8">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="schema"
+              [class.is-invalid]="schemaNoValida" placeholder="Seleccione una tabla">
+              <option *ngFor="let item of esquemas" [value]="item.esquema">
+                {{ item.esquema }}
+              </option>
+            </select>
+            <small class="rojo" *ngIf="schemaNoValida">Seleccione una opcion</small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label">Generar</label>
+
+          <div class="col-8">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="procedure"
+              [class.is-invalid]="procedureNoValida" placeholder="Seleccione una tabla">
+              <option *ngFor="let item of cruds" [value]="item.crud">
+                {{ item.crud }}
+              </option>
+            </select>
+            <small class="rojo" *ngIf="procedureNoValida">Seleccione una opcion</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <div class="row">
+
+          <div class="col-sm" *ngIf="inputDesactivado">
+            <button type="submit"class="btn btn-primary btn-block">
+              Generar Código
+            </button>
+          </div>
+
+          <div class="col-sm" *ngIf="!inputDesactivado">
+            <button type="button" class="btn btn-success btn-block" (click)="validarConexion( )">
+              Conectar
+            </button>
+          </div>
+
+          
+        <div class="col-sm" *ngIf="inputDesactivado" >
+          <button  type="button" class="btn btn-danger btn-block" style="position: relative; left: 0px;" (click)="detenerConexion()">
+            Terminar conexión
+          </button>  
+        </div>
+          
+          
+        </div>
+        
+      </div>
+    </div>
+    <div>
+    </div >
+
+
+    
+
+    
+  </div>
+
+</form>
+
+<!--Modal para imprimir el procedure-->
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"><strong>Procedure</strong></h4>
+    <button type="button" class="close rojo" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ sql }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">
+      Cerrar
+    </button>
+    <!--button type="button" class="btn btn-danger" (click)="modal.close('Close click')">
+      Cancelar
+    </button-->
+  </div>
+</ng-template>
+
+<!--Modal para Crear el esquema-->
+<ng-template #creandoSchema let-modal class="modal">
+  <div class="modal-header">
+    <h4 class="modal-title"><strong>Creando esquema</strong></h4>
+    <button type="button" class="close rojo" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="login100-form validate-form flex-sb flex-w">
+      <label>Nuevo esquema</label>
+      <div class="wrap-input100 m-b-16">
+        <input class="form-control" autocomplete="off" type="text" name="newSchema" [(ngModel)]="nuevoSchema" required
+          placeholder="Ingrese el nombre del nuevo schema"
+          [class.is-invalid]="f.submitted && f.controls['newSchema'].errors" />
+        <small *ngIf="f.submitted && f.controls['newSchema'].errors" class="text-danger animated fadeIn">El esquema es
+          obligatorio</small>
+
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="modal-footer m-3">
+        <button type="button" class="btn btn-primary" type="submit">
+          Crear
+        </button>
+        <button type="button" class="btn btn-danger" (click)="modalclose()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

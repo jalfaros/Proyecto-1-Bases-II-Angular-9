@@ -1,0 +1,18 @@
+.rojo{
+
+    color: red;
+  }
+  
+  .espacioButton{
+    margin: 8px;
+  }
+
+  .btnAgregar{
+ 
+    margin-top: 60px;
+    margin-right: 60px;
+    position:absolute;
+    top:0;
+    right:0;
+
+  }
